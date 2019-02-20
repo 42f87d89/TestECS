@@ -9,6 +9,6 @@ import kotlin.reflect.KClass
 fun logger() {
     val es = getEntitiesWithComponents(listOf(Logger::class as KClass<Component>))
     for (e in es) {
-        println((getComponentOf(e, Logger::class as KClass<Component>) as Logger).Message)
+        println((getComponentOf(e) as Logger).Message)
     }
 }

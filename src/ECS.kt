@@ -2,8 +2,8 @@ import components.Component
 import systems.System
 import kotlin.reflect.KClass
 
-var systems: ArrayList<System> = ArrayList(10)
-var currentId = 0
+private var systems: ArrayList<System> = ArrayList(10)
+private var currentId = 0
 
 var components  = ComponentMap()
 
@@ -17,6 +17,7 @@ public fun registerComponent(c: KClass<out Component>) {
 
 public fun addComponentToEntity(id: Int, c: Component) {
     c.Id = id
+    if (!components.containsKey(c::class)) registerComponent(c::class)
     components[c::class]?.add(c)
 }
 
@@ -30,8 +31,8 @@ public fun getEntitiesWithComponents(compTypes: List<KClass<out Component>>): Li
     return result
 }
 
-public fun getComponentOf(id: Int, type: KClass<out Component>): Component {
-    return components[type]?.find { x -> x.Id == id }!!
+public inline fun <reified T: Component>getComponentOf(id: Int): T {
+    return components[T::class]?.find { x -> x.Id == id }!! as T
 }
 
 public fun runSystems() {

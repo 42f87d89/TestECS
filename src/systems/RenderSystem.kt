@@ -20,8 +20,8 @@ public object Render: System(listOf(Position::class, Visual::class), run = { ent
     GL11.glClearColor(0.0f,0.0f,0.0f,1.0f)
     GL11.glClear(GL11.GL_COLOR_BUFFER_BIT)
     for (e in entities) {
-        val pos = getComponentOf(e, Position::class) as Position
-        val img = getComponentOf(e, Visual::class) as Visual
+        val pos = getComponentOf(e) as Position
+        val img = getComponentOf(e) as Visual
         paintSquare((pos.x/1600.0).toFloat(), (pos.y/1600.0).toFloat(), img.image.width, img.image.color)
     }
     GLFW.glfwSwapBuffers(window)
